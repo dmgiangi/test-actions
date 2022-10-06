@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>dev.dmgiangi</groupId>
 	<artifactId>test-actions</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>test-actions</name>
 	<description>a mock project to test github actions</description>
 	<properties>
