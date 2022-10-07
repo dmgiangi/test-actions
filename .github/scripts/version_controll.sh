@@ -1,6 +1,5 @@
 #!/bin/bash
 
-ls
 echo
 date
 
@@ -27,22 +26,23 @@ else
 fi
 
 echo
-DISCORDING_VERSION=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "@version $PR_VERSION" )
 
+DISCORDING_VERSION=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "*[[:space:]]*@version $PR_VERSION")
+          
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
 	echo "OK - The version in the javado is valid"
 else
-	echo "::error::ERROR - the sequent file have a invalid versione reported:"
-	ERROR_FILES=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "@version $PR_VERSION" )
-	echo "::error:: $ERROR_FILES"
-        FAIL=1
+	echo "ERROR - the sequent file have a invalid versione reported:"
+	echo
+	grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "*[[:space:]]*@version $PR_VERSION"
+	echo "::error::ERROR - Some file have wrong version reported"
+	FAIL=1
 fi
 
-echo $FAIL
-
-if [ $FAIL == 1]
+if [ $FAIL == 1 ]
 then
 	exit 1
 fi
+
 exit 0
