@@ -46,8 +46,3 @@ jobs:
           echo "${{ env.master_version }}"
           MASTER_VERSION="${{ env.master_version }}"
           source .github/scripts/version_controll.sh
-
-
-        
-        
-
