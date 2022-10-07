@@ -18,7 +18,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build with Maven
-      run: |
-        mvn -B test --file pom.xml
-        curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{secrets.token_github}}" https://api.github.com/repos/$GITHUB_REPOSITORY_OWNER/$GITHUB_REPOSITORY/commits/$GITHUB_REF/status
+    - name: Run Test
+      run: mvn -B test --file pom.xml
+    
