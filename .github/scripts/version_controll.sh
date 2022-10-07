@@ -23,11 +23,8 @@ else
         	FAIL=1
         fi
 fi
-grep -rnw ./src -e '* @version' 
-grep -src -v "* @version $PR_VERSION"
-echo 'qui'
 
-DISCORDING_VERSION=$(grep -rnw ./src -e '* @version' | grep -v "* @version $PR_VERSION")
+grep -rw ./src -e '* @version' | grep -v "* @version $PR_VERSION" | read DISCORDING_VERSION
 echo $DISCORDING_VERSION
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
