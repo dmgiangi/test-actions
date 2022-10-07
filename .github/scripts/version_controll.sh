@@ -25,6 +25,7 @@ else
 fi
 
 echo
+DISCORDING_VERSION=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "@version $PR_VERSION" )
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
