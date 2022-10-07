@@ -1,7 +1,9 @@
 #!/bin/bash
 
-cd .
+pwd
+echo
 date
+
 PR_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
 
 echo
@@ -41,6 +43,6 @@ echo $FAIL
 
 if [ $FAIL == 1]
 then
-	exit1
+	exit 1
 fi
-	exit0
+exit 0
