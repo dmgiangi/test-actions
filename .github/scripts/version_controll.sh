@@ -28,6 +28,7 @@ echo
 
 DISCORDING_VERSION=$(grep -rnw . -e '* @version' | grep -v "@version $PR_VERSION")
 
+echo $DISCORDING_VERSION
 echo "@version $PR_VERSION"
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
@@ -36,7 +37,7 @@ then
 else
 	echo "::error::ERROR - the sequent file have a invalid versione reported:"
 	ERROR_FILES=$(grep -rnw . -e '* @version' | grep -v "@version $PR_VERSION" )
-	echo "::error::$ERROR_FILES"
+	echo "::error:: $ERROR_FILES"
         FAIL=1
 fi
 
