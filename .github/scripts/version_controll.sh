@@ -31,8 +31,8 @@ if [ -z "${DISCORDING_VERSION-unset}" ]
 then
 	echo "OK - The version in the javado is valid"
 else
-	echo "ERROR - the sequent file have a invalid versione reported:"
-	grep -rnw . -e '* @version' | grep -v '@version $PR_VERSION'
-	echo "::error::ERROR - Some file have wrong version reported"
+	echo "::error::ERROR - the sequent file have a invalid versione reported:"
+	ERROR_FILES=$(grep -rnw . -e '* @version' | grep -v '@version $PR_VERSION' )
+	echo "::error::$ERROR_FILES"
         	#exit 1
 fi
