@@ -11,7 +11,7 @@ jobs:
   check_version:
     name: check pull request version
     
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
     
     steps:
           
