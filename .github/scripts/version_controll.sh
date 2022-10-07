@@ -9,17 +9,18 @@ echo "- Master version:       $MASTER_VERSION"
 echo "- pull request version: $PR_VERSION"
 echo
 
+FAIL=0
+
 if [ "$MASTER_VERSION" = "$PR_VERSION" ]
 then
 	echo "::error::ERROR - The pom.xml file of the pull request have the same version of the master branch"
-	#exit 1
 else
 	if [  "$MASTER_VERSION" = "`echo -e "$MASTER_VERSION\n$PR_VERSION" | sort -V | head -n1`" ]
 	then
          	echo "OK - the version of the pullrequest is greater than the version in the main branch"
         else
         	echo "::error::ERROR - The version in the pom.xml of the pull request is less of the version of the master branch"
-        	#exit 1
+        	FAIL=1
         fi
 fi
 
@@ -34,5 +35,7 @@ else
 	echo "::error::ERROR - the sequent file have a invalid versione reported:"
 	ERROR_FILES=$(grep -rnw . -e '* @version' | grep -v '@version $PR_VERSION' )
 	echo "::error::$ERROR_FILES"
-        	#exit 1
+        FAIL=1
 fi
+
+exit $FAIL
