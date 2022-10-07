@@ -25,8 +25,7 @@ else
         fi
 fi
 
-echo
-
+echo ok
 DISCORDING_VERSION=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "*[[:space:]]*@version $PR_VERSION")
 echo $DISCORDING_VERSION
 
