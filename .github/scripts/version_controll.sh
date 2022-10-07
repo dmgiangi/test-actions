@@ -26,11 +26,6 @@ fi
 
 echo
 
-DISCORDING_VERSION=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "@version $PR_VERSION")
-
-echo $DISCORDING_VERSION
-echo "@version $PR_VERSION"
-
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
 	echo "OK - The version in the javado is valid"
@@ -41,4 +36,10 @@ else
         FAIL=1
 fi
 
-exit $FAIL
+echo $FAIL
+
+if [ $FAIL == 1]
+then
+	exit1
+fi
+	exit0
