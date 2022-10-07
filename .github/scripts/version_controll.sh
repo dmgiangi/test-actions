@@ -26,7 +26,7 @@ fi
 
 echo
 
-DISCORDING_VERSION=$(grep -rnw . -e '* @version' | grep -v "@version $PR_VERSION")
+DISCORDING_VERSION=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "@version $PR_VERSION")
 
 echo $DISCORDING_VERSION
 echo "@version $PR_VERSION"
@@ -36,7 +36,7 @@ then
 	echo "OK - The version in the javado is valid"
 else
 	echo "::error::ERROR - the sequent file have a invalid versione reported:"
-	ERROR_FILES=$(grep -rnw . -e '* @version' | grep -v "@version $PR_VERSION" )
+	ERROR_FILES=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "@version $PR_VERSION" )
 	echo "::error:: $ERROR_FILES"
         FAIL=1
 fi
