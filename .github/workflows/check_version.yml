@@ -31,7 +31,7 @@ jobs:
           cache: maven
 
       # get master branch version
-      - name: checkout maven version
+      - name: checkout master version
         run: |
           MASTER_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
           echo $MASTER_VERSION
