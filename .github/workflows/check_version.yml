@@ -44,7 +44,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: get pull request version
-        run: source /.github/scripts/version_controll.sh
+        run: source .github/scripts/version_controll.sh
 
 
         
