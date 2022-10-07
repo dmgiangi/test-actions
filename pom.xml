@@ -8,6 +8,7 @@
 		<version>2.7.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>dev.dmgiangi</groupId>
 	<artifactId>test-actions</artifactId>
 	<version>0.0.6</version>
