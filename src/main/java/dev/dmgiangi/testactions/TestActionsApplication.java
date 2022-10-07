@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
-* @version 0.0.5 
+* @version 0.0.7
 */
 @SpringBootApplication
 public class TestActionsApplication {
