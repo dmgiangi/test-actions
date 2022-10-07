@@ -2,22 +2,51 @@ name: test_pull_request
 
 on:
   pull_request:
-
-jobs:
-  test:
+  
+env:
+  MASTER_VERSION: -1
+  PR_VERSION: -1
+  
+jobs:  
+  checkout_master:
     name: test pull request
-    runs-on: ubuntu-latest
-
+    
+    runs-on: ubutnu-latest
+    
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
+      # checkout master
+      - name: checkout master branch
+        uses: actions/checkout@v3.1.0
+        with:
+          repository: ${{ github.repository }}
+          ref: master
+      # get master branch version
+      - name: checkout maven version
+        run: |
+          $MASTER_VERSION = mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }'
+          echo $MASTER_VERSION
 
-    - name: Run Test
-      run: mvn -B test --file pom.xml
-    
+      #Checkout pull request branch
+      - name: checkout pull request branch
+        uses: actions/checkout@v3.1.0
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+
+      - name: get pull request version
+        run: |
+          $MASTER_VERSION = mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }'
+          echo $MASTER_VERSION
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run Test
+        run: mvn -B test --file pom.xml
+        
+        
+
