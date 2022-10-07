@@ -2,6 +2,7 @@
 
 echo
 date
+grep
 
 PR_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
 
@@ -19,13 +20,11 @@ else
 	if [ "$MASTER_VERSION" == "`echo -e "$MASTER_VERSION\n$PR_VERSION" | sort -V | head -n1`" ]
 	then
          	echo "OK - the version of the pullrequest is greater than the version in the main branch"
-		echo 'qui'
         else
         	echo "::error::ERROR - The version in the pom.xml of the pull request is less of the version of the master branch"
         	FAIL=1
         fi
 fi
-echo 'qui'
 grep -rnw ./src -e '* @version' | grep -v "* @version $PR_VERSION"
 echo 'qui'
 
