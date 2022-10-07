@@ -31,6 +31,7 @@ jobs:
         run: |
           echo MASTER_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
           echo "master_version=$MASTER_VERSION" >> $GITHUB_ENV
+          echo "master_version=$MASTER_VERSION"
 
       #Checkout pull request branch
       - name: checkout pull request branch
@@ -41,6 +42,8 @@ jobs:
 
       - name: get pull request version
         run: |
+          echo ${{ env.master_version }}
+          echo "${{ env.master_version }}"
           MASTER_VERSION="${{ env.master_version }}"
           source .github/scripts/version_controll.sh
 
