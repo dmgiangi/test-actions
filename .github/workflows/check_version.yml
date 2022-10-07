@@ -1,4 +1,4 @@
-name: test_pull_request
+name: check pull request version
 
 on:
   pull_request:
