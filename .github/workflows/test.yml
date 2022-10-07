@@ -45,8 +45,8 @@ jobs:
 
       - name: get pull request version
         run: |
-          PRVERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
-          echo $MASTER_VERSION
+          PR_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
+          echo $PR_VERSION
 
       - name: Run Test
         run: mvn -B test --file pom.xml
