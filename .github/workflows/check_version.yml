@@ -3,10 +3,6 @@ name: check pull request version
 on:
   pull_request:
   
-env:
-  MASTER_VERSION: -1
-  PR_VERSION: -1
-  
 jobs: 
   check_version:
     name: check pull request version
@@ -33,8 +29,8 @@ jobs:
       # get master branch version
       - name: checkout master version
         run: |
-          MASTER_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
-          echo $MASTER_VERSION
+          echo MASTER_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
+          echo "master_version=$MASTER_VERSION" >> $GITHUB_ENV
 
       #Checkout pull request branch
       - name: checkout pull request branch
@@ -44,7 +40,9 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: get pull request version
-        run: source .github/scripts/version_controll.sh
+        run: |
+          MASTER_VERSION="${{ env.master_version }}"
+          source .github/scripts/version_controll.sh
 
 
         
