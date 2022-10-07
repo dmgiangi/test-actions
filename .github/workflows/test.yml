@@ -11,7 +11,7 @@ jobs:
   checkout_master:
     name: test pull request
     
-    runs-on: ubutnu-latest
+    runs-on: ubuntu-latest
     
     steps:
       # checkout master
