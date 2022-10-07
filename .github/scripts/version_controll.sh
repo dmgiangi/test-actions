@@ -1,15 +1,13 @@
 #!/bin/bash
 
-echo
-date
-grep
+echo " "
 
 PR_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
 
-echo
+echo " "
 echo "- Master version:       $MASTER_VERSION"
 echo "- pull request version: $PR_VERSION"
-echo
+echo " "
 
 FAIL=0
 
@@ -25,7 +23,8 @@ else
         	FAIL=1
         fi
 fi
-grep -rnw ./src -e '* @version' | grep -v "* @version $PR_VERSION"
+grep -rnw ./src -e '* @version' 
+grep -src -v "* @version $PR_VERSION"
 echo 'qui'
 
 DISCORDING_VERSION=$(grep -rnw ./src -e '* @version' | grep -v "* @version $PR_VERSION")
