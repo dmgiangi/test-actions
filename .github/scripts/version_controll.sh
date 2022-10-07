@@ -28,12 +28,13 @@ fi
 echo
 
 DISCORDING_VERSION=$(grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "*[[:space:]]*@version $PR_VERSION")
-          
+echo $DISCORDING_VERSION
+
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
-	echo "OK - The version in the javado is valid"
+	echo "OK - The version in the javadoc is valid"
 else
-	echo "ERROR - the sequent file have a invalid versione reported:"
+	echo "ERROR - the sequent file have a invalid version reported:"
 	echo
 	grep -rnw ./src -e '*[[:space:]]*@version' | grep -v "*[[:space:]]*@version $PR_VERSION"
 	echo "::error::ERROR - Some file have wrong version reported"
