@@ -27,7 +27,8 @@ fi
 echo
 
 DISCORDING_VERSION=$(grep -rnw . -e '* @version' | grep -v '@version $PR_VERSION')
-          
+grep -rnw . -e '* @version' | grep -v '@version $PR_VERSION'
+
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
 	echo "OK - The version in the javado is valid"
