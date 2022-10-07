@@ -14,12 +14,22 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    
+      #set up java environment
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          
       # checkout master
       - name: checkout master branch
         uses: actions/checkout@v3.1.0
         with:
           repository: ${{ github.repository }}
           ref: master
+          
       # get master branch version
       - name: checkout maven version
         run: |
@@ -37,13 +47,6 @@ jobs:
         run: |
           $MASTER_VERSION = mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }'
           echo $MASTER_VERSION
-      
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
 
       - name: Run Test
         run: mvn -B test --file pom.xml
