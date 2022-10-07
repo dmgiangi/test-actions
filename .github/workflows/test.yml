@@ -7,9 +7,9 @@ env:
   MASTER_VERSION: -1
   PR_VERSION: -1
   
-jobs:  
-  checkout_master:
-    name: test pull request
+jobs: 
+  check_version:
+    name: check pull request version
     
     runs-on: ubuntu-latest
     
@@ -29,7 +29,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-          
+
       # get master branch version
       - name: checkout maven version
         run: |
@@ -48,8 +48,6 @@ jobs:
           PR_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
           echo $PR_VERSION
 
-      - name: Run Test
-        run: mvn -B test --file pom.xml
         
         
 
