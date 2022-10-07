@@ -25,12 +25,10 @@ else
         fi
 fi
 
-echo "- Master version:       $MASTER_VERSION"
-echo "- pull request version: $PR_VERSION"
-grep -rnw ./src -e '* @version' 
-grep -rnw ./src -e '* @version' | grep -v "* @version $PR_VERSION"
+
 DISCORDING_VERSION=$(grep -rnw ./src -e '* @version' | grep -v "* @version $PR_VERSION")
 echo $DISCORDING_VERSION
+echo 'qui'
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
