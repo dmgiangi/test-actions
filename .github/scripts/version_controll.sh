@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pwd
+ls
 echo
 date
 
