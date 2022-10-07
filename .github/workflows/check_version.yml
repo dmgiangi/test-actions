@@ -2,7 +2,7 @@ name: check pull request version
 
 on:
   pull_request:
-  
+
 jobs: 
   check_version:
     name: check pull request version
