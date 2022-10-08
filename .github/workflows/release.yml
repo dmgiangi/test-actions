@@ -41,6 +41,7 @@ jobs:
         run: |
           FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g' | tr '|' '\n')
           echo "$FILES"  
+          echo "::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS:true"
           echo "::set-env name=files::$FILES"
 
       - name: Automatic Releases
