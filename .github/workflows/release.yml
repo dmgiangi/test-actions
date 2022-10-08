@@ -29,23 +29,6 @@ jobs:
         run: |
           mvn clean package -Djar.finalName=${{ github.event.repository.name }}
 
-      - name: File List
-        id: filesList
-        uses: the-coding-turtle/ga-file-list@v0.4.1
-        with:
-          directory: "./target"
-          only_files_starts_with: ${{ github.event.repository.name }}
-          
-          
-      - name: generate files list with path
-        run: |
-          FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g')
-
-          echo 'FILES_LIST<<LABRT456' >> $GITHUB_ENV
-          echo "$FILES"   >> $GITHUB_ENV
-          echo 'LABRT456' >> $GITHUB_ENV
-          echo $GITHUB_ENV
-
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
         with:
@@ -56,4 +39,8 @@ jobs:
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
           files: |
-            ${{ env.files_list }}
+            ./target/${{ github.event.repository.name }}-${{ env.master_version }}.jar
+            ./target/${{ github.event.repository.name }}-${{ env.master_version }}.pom
+            ./target/${{ github.event.repository.name }}-${{ env.master_version }}-javadoc.jar
+            ./target/${{ github.event.repository.name }}-${{ env.master_version }}-sources.jar
+            
