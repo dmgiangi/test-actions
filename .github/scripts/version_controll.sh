@@ -24,13 +24,13 @@ else
         fi
 fi
 
-set +x
-
 echo "polpette"
-grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION"
-echo "pasta"
-DISCORDING_VERSION=$(grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION")
-echo "pizza"
+T=$(grep -rnE "\* @version " ./src)
+echo "t = $T"
+echo " "
+[ ! -e $T ] && DISCORDING_VERSION=$(grep -v "@version $PR_VERSION") || unset DISCORDING_VERSION
+echo "t = $T"
+echo "DISCORDING_VERSION = $DISCORDING_VERSION"
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
