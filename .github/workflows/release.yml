@@ -39,10 +39,8 @@ jobs:
       - name: ksk
         run: |
           echo -e "${{ join(
-                      fromJson(
-                        steps.filesList.outputs.files
-                        ).map(e => "./target/" + e),
-                      '\n')
+                        Array.prototype.map((e, i, fromJson(steps.filesList.outputs.files)) => e => "./target/" + e),
+                        '\n')
                 }}' )"
 
       - name: Automatic Releases
