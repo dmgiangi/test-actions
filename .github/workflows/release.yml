@@ -40,7 +40,7 @@ jobs:
       - name: ksk
         run: |
           FILES=$(cat << EOF
-          "{{ join( fromJson(steps.filesList.outputs.files), '\n') }}"
+          "${{ join( fromJson(steps.filesList.outputs.files), '\n') }}"
           EOF
           )
           echo "$FILES"          
