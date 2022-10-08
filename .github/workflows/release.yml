@@ -39,9 +39,9 @@ jobs:
           
       - name: generate files list with path
         run: |
-          FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g' | tr '|' ' ')
+          FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g' | tr '|' '\n')
           echo "$FILES"  
-          echo "files=$FILES" >> $GITHUB_ENV
+          echo "::set-env name=files::$FILES"
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
