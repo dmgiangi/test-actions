@@ -25,7 +25,7 @@ else
 fi
 
 echo "polpette"
-grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION"
+grep -rnE "\* @version " ./src
 echo "pasta"
 DISCORDING_VERSION=$(grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION")
 echo "pizza"
