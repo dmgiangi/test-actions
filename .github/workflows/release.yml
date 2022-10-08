@@ -37,9 +37,9 @@ jobs:
           only_files_starts_with: ${{ github.event.repository.name }}
           
           
-      - name: ksk
+      - name: generate files list with path
         run: |
-          FILES="./target/${{ join( fromJson(steps.filesList.outputs.files), '; ') }}"
+          FILES=$("./target/${{ join( fromJson(steps.filesList.outputs.files), '; ') }}" | tr '; ' './target/)
           echo "$FILES"          
 
       - name: Automatic Releases
