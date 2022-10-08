@@ -25,7 +25,7 @@ else
 fi
 
 T=$(grep -rnE "\* @version " ./src)
-[ ! -e "$T" ] && {DISCORDING_VERSION=$(grep -v "@version $PR_VERSION" <<< $T)} || unset DISCORDING_VERSION
+[ ! -e "$T" ] && DISCORDING_VERSION=$(grep -v "@version $PR_VERSION" <<< $T) || unset DISCORDING_VERSION
 
 if [ -z "${DISCORDING_VERSION+x}" ]
 then
