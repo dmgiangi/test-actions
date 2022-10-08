@@ -26,18 +26,17 @@ fi
 
 echo "polpette"
 T=$(grep -rnE "\* @version " ./src)
-echo "t = $T"
-echo " "
-[ ! -e $T ] && DISCORDING_VERSION=$(grep -v "@version $PR_VERSION") || unset DISCORDING_VERSION
-echo "t = $T"
-echo "DISCORDING_VERSION = $DISCORDING_VERSION"
+[ ! -e $T ] && DISCORDING_VERSION=$(grep -v "@version $PR_VERSION") <<< $T || unset DISCORDING_VERSION
 
-if [ -z "${DISCORDING_VERSION-unset}" ]
+echo "discording version = $DISCORDING_VERSION"
+
+if [ -z "${DISCORDING_VERSION+x}" ]
 then
 	echo "OK - The version in the javadoc is valid"
 else
 	echo "ERROR - the sequent file have a invalid version reported:"
-	grep -rnwF ./src -e '* @version' | grep -Fv "* @version $PR_VERSION"
+	T=$(grep -rnE "\* @version " ./src)
+	[ ! -e $T ] && grep -v "@version $PR_VERSION" <<< $T
 	echo " "
 	echo "::error::ERROR - Some file have wrong version reported"
 	FAIL=1
