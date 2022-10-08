@@ -24,8 +24,8 @@ else
         fi
 fi
 
-DISCORDING_VERSION=$(grep -rnwF ./src -e '\* @version' | grep -Fv "\* @version $PR_VERSION")
-echo " "
+DISCORDING_VERSION=$(grep -rnwE '\* @version' ./src | grep -Ev "\* @version $PR_VERSION")
+echo "piazza "
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
