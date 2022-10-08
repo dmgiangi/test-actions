@@ -1,15 +1,17 @@
 name: release
 
 on:
+
   push:
+
     branches: [ "master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v3
-
       #set up java environment
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -17,34 +19,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      
+          
       #run test
       - name: Run Test
         run: |
           mvn -B test --file pom.xml
           MASTER_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')
           echo "master_version=$MASTER_VERSION" >> $GITHUB_ENV
-      
+
       - name: Create Package
         run: |
           mvn clean package -Djar.finalName=${{ github.event.repository.name }}
-       
-      - name: File List
-        uses: the-coding-turtle/ga-file-list@v0.4.1
-        id: files
-        with:
-          directory: "./target"
-          only_files_starts_with: ${{ github.event.repository.name }}
-      
+
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
         with:
           # GitHub secret token
-          repo_token: ${{secrets.release_token}}
-          
+          repo_token: ${{secrets.github_token}}
           automatic_release_tag: ${{ env.master_version }}
           draft: false
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
           files: ".target/${{ github.event.repository.name }}*"
-        
