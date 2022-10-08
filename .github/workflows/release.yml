@@ -40,7 +40,8 @@ jobs:
       - name: generate files list with path
         run: |
           FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g' | tr '|' '\n')
-          echo "$FILES"          
+          echo "$FILES"  
+          echo "files=$$FILES" >> $GITHUB_ENV
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
@@ -51,4 +52,4 @@ jobs:
           draft: false
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
-          files: ${{ join(fromJson(steps.filesList.outputs.files) , ' ') }}
+          files: ${{ env.files }}
