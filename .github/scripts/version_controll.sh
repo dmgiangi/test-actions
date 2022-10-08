@@ -24,11 +24,8 @@ else
         fi
 fi
 
-echo "polpette"
 T=$(grep -rnE "\* @version " ./src)
 [ ! -e $T ] && DISCORDING_VERSION=$(grep -v "@version $PR_VERSION") <<< $T || unset DISCORDING_VERSION
-
-echo "discording version = $DISCORDING_VERSION"
 
 if [ -z "${DISCORDING_VERSION+x}" ]
 then
@@ -41,9 +38,6 @@ else
 	echo "::error::ERROR - Some file have wrong version reported"
 	FAIL=1
 fi
-
-set -e
-echo $FAIL
  
 if [ $FAIL == 1 ]
 then
