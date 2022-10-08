@@ -24,7 +24,7 @@ else
         fi
 fi
 
-grep -rw ./src -e '* @version' | grep -v "* @versiojn $PR_VERSION"
+grep -rnw ./src -e '\* @version' | grep -v "\* @versiojn $PR_VERSION"
 echo $DISCORDING_VERSION
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
