@@ -37,7 +37,8 @@ jobs:
           only_files_starts_with: ${{ github.event.repository.name }}
           
       - name: ksk
-        run: echo -e ${{ join(fromJson(steps.filesList.outputs.files) , '\n') }}
+        run: |
+          echo $(tr ';' '\n' < ${{ join(fromJson(steps.filesList.outputs.files) , ';') }})
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
