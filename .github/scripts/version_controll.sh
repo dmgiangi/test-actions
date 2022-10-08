@@ -25,19 +25,22 @@ else
 fi
 
 
-echo $DISCORDING_VERSION=$(grep -rnw ./src -e '\* @version' | grep -v "\* @versiojn $PR_VERSION")
+$DISCORDING_VERSION=$(grep -rnw ./src -e '\* @version' | grep -v "\* @version $PR_VERSION")
+echo " "
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
 	echo "OK - The version in the javadoc is valid"
 else
 	echo "ERROR - the sequent file have a invalid version reported:"
-	echo
 	grep -rnw ./src -e '\* @version' | grep -v "\* @version $PR_VERSION"
+	echo " "
 	echo "::error::ERROR - Some file have wrong version reported"
 	FAIL=1
 fi
 
+echo $FAIL
+ 
 if [ $FAIL == 1 ]
 then
 	exit 1
