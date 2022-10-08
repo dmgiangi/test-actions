@@ -24,8 +24,8 @@ else
         fi
 fi
 
-grep -rnw ./src -e '\* @version' | grep -v "\* @versiojn $PR_VERSION"
-echo $DISCORDING_VERSION
+
+echo $DISCORDING_VERSION=$(grep -rnw ./src -e '\* @version' | grep -v "\* @versiojn $PR_VERSION")
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
@@ -33,7 +33,7 @@ then
 else
 	echo "ERROR - the sequent file have a invalid version reported:"
 	echo
-	grep -rnw ./src -e '* @version' | grep -v "* @version $PR_VERSION"
+	grep -rnw ./src -e '\* @version' | grep -v "\* @version $PR_VERSION"
 	echo "::error::ERROR - Some file have wrong version reported"
 	FAIL=1
 fi
