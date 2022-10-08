@@ -39,7 +39,7 @@ jobs:
           
       - name: generate files list with path
         run: |
-          FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | tr ';' './target/')
+          FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | tr ';' ' ./target/')
           echo "$FILES"          
 
       - name: Automatic Releases
