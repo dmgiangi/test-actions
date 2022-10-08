@@ -24,7 +24,7 @@ else
         fi
 fi
 
-DISCORDING_VERSION=3
+DISCORDING_VERSION=$(ls)
 echo $DISCORDING_VERSION
 
 DISCORDING_VERSION=$(grep -rnw ./src -e '\* @version' | grep -v "\* @version $PR_VERSION")
