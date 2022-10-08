@@ -44,8 +44,7 @@ jobs:
           echo 'FILES_LIST<<LABRT456' >> $GITHUB_ENV
           echo "$FILES"   >> $GITHUB_ENV
           echo 'LABRT456' >> $GITHUB_ENV
-          
-          echo ${{ env.files_list }}
+          echo $GITHUB_ENV
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
