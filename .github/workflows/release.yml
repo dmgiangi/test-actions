@@ -39,7 +39,7 @@ jobs:
           
       - name: generate files list with path
         run: |
-          FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g' | tr '|' '\n')
+          FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g')
           echo "$FILES"  
           echo "files=$FILES" >> $GITHUB_ENV
           echo "${{ env.files }}"
@@ -54,4 +54,4 @@ jobs:
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
           files: |
-            ${{ env.files }}
+            ${{ env.files | tr '|' '\n'}}
