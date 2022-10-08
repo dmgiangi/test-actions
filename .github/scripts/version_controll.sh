@@ -23,6 +23,8 @@ else
         	FAIL=1
         fi
 fi
+
+echo "polpette"
 grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION"
 echo "pasta"
 DISCORDING_VERSION=$(grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION")
