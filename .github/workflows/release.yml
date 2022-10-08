@@ -38,7 +38,7 @@ jobs:
           
       - name: ksk
         run: |
-          echo $(tr ';' '\n' < "${{ join(fromJson(steps.filesList.outputs.files) , ';') }}" )
+          echo $(tr ';' '\n' < '${{ join(fromJson(steps.filesList.outputs.files) , ';') }}' )
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
