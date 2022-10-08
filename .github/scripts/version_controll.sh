@@ -25,7 +25,7 @@ else
 fi
 
 T=$(grep -rnE "\* @version " ./src)
-[ ! -e $T ] && DISCORDING_VERSION=$(grep -v "@version $PR_VERSION") <<< $T || unset DISCORDING_VERSION
+[ ! -e $T ] && {DISCORDING_VERSION=$(grep -v "@version $PR_VERSION") <<< $T} || unset DISCORDING_VERSION
 
 if [ -z "${DISCORDING_VERSION+x}" ]
 then
@@ -33,7 +33,7 @@ then
 else
 	echo "ERROR - the sequent file have a invalid version reported:"
 	T=$(grep -rnE "\* @version " ./src)
-	[ ! -e $T ] && grep -v "@version $PR_VERSION" <<< $T
+	[ ! -e $T ] && {grep -v "@version $PR_VERSION" <<< $T}
 	echo " "
 	echo "::error::ERROR - Some file have wrong version reported"
 	FAIL=1
