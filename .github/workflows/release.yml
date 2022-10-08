@@ -36,12 +36,14 @@ jobs:
           directory: "./target"
           only_files_starts_with: ${{ github.event.repository.name }}
           
+          
       - name: ksk
         run: |
-          echo -e "${{ join(
-                        Array.from(fromJson(steps.filesList.outputs.files)).map(e => "./target/" + e),
-                        '\n')
-                }}' )"
+          FILES=$(cat << EOF
+          "{{ join( fromJson(steps.filesList.outputs.files), '\n') }}"
+          EOF
+          )
+          echo "$FILES"          
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
@@ -52,5 +54,4 @@ jobs:
           draft: false
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
-          files: |
-            ${{ join(fromJson(steps.filesList.outputs.files) , '\n') }}
+          files: ${{ join(fromJson(steps.filesList.outputs.files) , ' ') }}
