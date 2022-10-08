@@ -45,7 +45,7 @@ jobs:
           # GitHub secret token
           repo_token: ${{secrets.github_token}}
           automatic_release_tag: ${{ env.master_version }}
-          draft: true
+          draft: false
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
           files: |
