@@ -33,7 +33,7 @@ then
 else
 	echo "ERROR - the sequent file have a invalid version reported:"
 	T=$(grep -rnE "\* @version " ./src)
-	[ ! -e $T ] && {grep -v "@version $PR_VERSION" <<< $T}
+	grep -v "@version $PR_VERSION" <<< $T
 	echo " "
 	echo "::error::ERROR - Some file have wrong version reported"
 	FAIL=1
