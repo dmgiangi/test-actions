@@ -1,9 +1,7 @@
 name: release
 
 on:
-
   push:
-
     branches: [ "master" ]
 
 jobs:
@@ -31,13 +29,23 @@ jobs:
         run: |
           mvn clean package -Djar.finalName=${{ github.event.repository.name }}
 
+      - name: File List
+        id: filesList
+        uses: the-coding-turtle/ga-file-list@v0.4.1
+        with:
+          directory: "./target"
+          only_files_starts_with: ${{ github.event.repository.name }}
+          
+      - name: ksk
+        run: echo ${{fromJson(steps.filesList.files)}}
+
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
         with:
           # GitHub secret token
           repo_token: ${{secrets.github_token}}
           automatic_release_tag: ${{ env.master_version }}
-          draft: false
+          draft: true
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
-          files: ".target/${{ github.event.repository.name }}*"
+          files: "${{ github.event.repository.name }}*"
