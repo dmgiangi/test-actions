@@ -24,8 +24,10 @@ else
         fi
 fi
 
+set +x
+
 echo "polpette"
-grep -rnE "\* @version " ./src | grep ciccio
+grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION"
 echo "pasta"
 DISCORDING_VERSION=$(grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION")
 echo "pizza"
@@ -41,6 +43,7 @@ else
 	FAIL=1
 fi
 
+set -e
 echo $FAIL
  
 if [ $FAIL == 1 ]
