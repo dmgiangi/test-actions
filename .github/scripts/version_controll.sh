@@ -23,9 +23,10 @@ else
         	FAIL=1
         fi
 fi
-
-DISCORDING_VERSION=$(grep -rnwE '\* @version' ./src | grep -Ev "\* @version $PR_VERSION")
-echo "piazza "
+grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION"
+echo "pasta"
+DISCORDING_VERSION=$(grep -rnE "\* @version " ./src | grep -v "@version $PR_VERSION")
+echo "pizza"
 
 if [ -z "${DISCORDING_VERSION-unset}" ]
 then
