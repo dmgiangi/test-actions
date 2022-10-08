@@ -40,9 +40,12 @@ jobs:
       - name: generate files list with path
         run: |
           FILES=$(echo "./target/${{ join( fromJson(steps.filesList.outputs.files), ';') }}" | sed  's/;/|.\/target\//g')
-          echo "$FILES"  
-          echo "files=$FILES" >> $GITHUB_ENV
-          echo "${{ env.files }}"
+
+          echo 'FILES_LIST<<LABRT456' >> $GITHUB_ENV
+          echo "$FILES"   >> $GITHUB_ENV
+          echo 'LABRT456' >> $GITHUB_ENV
+          
+          echo ${{ env.files_list }}
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
@@ -54,4 +57,4 @@ jobs:
           prerelease: false
           title: "Buds Security ${{ env.master_version }}"
           files: |
-            ${{ env.files | tr '|' '\n'}}
+            ${{ env.files_list }}
