@@ -39,10 +39,7 @@ jobs:
           
       - name: ksk
         run: |
-          FILES=$(cat << EOF
-          "${{ join( fromJson(steps.filesList.outputs.files), '\n') }}"
-          EOF
-          )
+          FILES="./target/${{ join( fromJson(steps.filesList.outputs.files), '; ') }}"
           echo "$FILES"          
 
       - name: Automatic Releases
