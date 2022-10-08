@@ -42,7 +42,5 @@ jobs:
 
       - name: get pull request version
         run: |
-          echo ${{ env.master_version }}
-          echo "${{ env.master_version }}"
           MASTER_VERSION="${{ env.master_version }}"
           source .github/scripts/version_controll.sh
